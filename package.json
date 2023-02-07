@@ -7,7 +7,7 @@
     "tsc": "tsc",
     "dev": "ts-node-dev src/server.ts",
     "lint": "eslint --ext .ts .",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --verbose"
   },
   "keywords": [],
   "author": "victor4pinheiro",
@@ -16,17 +16,24 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
-    "mongoose": "^6.9.0",
+    "lodash": "^4.17.21",
+    "mongoose": "^6.9.1",
     "morgan": "^1.10.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.13",
-    "@types/express": "^4.17.16",
+    "@types/express": "^4.17.17",
+    "@types/jest": "^29.4.0",
+    "@types/lodash": "^4.14.191",
     "@types/morgan": "^1.9.4",
-    "@types/node": "^18.11.18",
-    "@typescript-eslint/eslint-plugin": "^5.50.0",
-    "@typescript-eslint/parser": "^5.50.0",
+    "@types/node": "^18.13.0",
+    "@types/supertest": "^2.0.12",
+    "@typescript-eslint/eslint-plugin": "^5.51.0",
+    "@typescript-eslint/parser": "^5.51.0",
     "eslint": "^8.33.0",
+    "jest": "^29.4.2",
+    "supertest": "^6.3.3",
+    "ts-jest": "^29.0.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^4.9.5"
   }
