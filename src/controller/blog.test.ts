@@ -145,7 +145,7 @@ describe("Blogs", () => {
     expect(response.body).toHaveLength(blogs.length - 1);
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     await Database.disconnecting();
   });
 });
