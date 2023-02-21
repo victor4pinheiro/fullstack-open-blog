@@ -78,6 +78,7 @@ describe("Blogs", () => {
       title: "Test Driven Development: By Example",
       author: "Kent Beck",
       likes: 28,
+      user: "63f4f07c3e8785465e3a5813",
       url: "https://www.amazon.com.br/Test-Driven-Development-Kent-Beck/dp/0321146530",
     };
 
@@ -97,6 +98,7 @@ describe("Blogs", () => {
     const newBlog = {
       title: "Test Driven Development: By Example",
       author: "Kent Beck",
+      user: "63f4f07c3e8785465e3a5813",
       url: "https://www.amazon.com.br/Test-Driven-Development-Kent-Beck/dp/0321146530",
     };
 
