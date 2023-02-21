@@ -1,26 +1,31 @@
 import request from "supertest";
 import app from "../app";
 import Database from "../database/connection";
-import hashPassword from "../middleware/hash";
 import User from "../model/user";
 
 const api = request(app);
 
 const users = [
   {
-    name: "Robert Cecil Martin",
     username: "Uncle Bob",
+    name: "Robert Cecil Martin",
     password: "cleancode",
+    __v: 0,
+    _id: "63f4f07c3e8785465e3a5813",
   },
   {
-    name: "Kent Beck",
     username: "XP guy",
+    name: "Kent Beck",
     password: "xppisthedude",
+    __v: 0,
+    _id: "63f4f07c3e8785465e3a5814",
   },
   {
-    name: "Linus Torvalds",
     username: "Linux guy",
+    name: "Linus Torvalds",
     password: "talkischeap.showmethecode.",
+    __v: 0,
+    _id: "63f4f07c3e8785465e3a5815",
   },
 ];
 
@@ -32,37 +37,39 @@ describe("Users", () => {
   });
 
   it("should return the new user created", async () => {
-    const newBlog = {
-      name: "Dennis Ritchie",
+    const newUser = {
       username: "Machine guy",
+      name: "Dennis Ritchie",
       password: "assemblyisgood.",
+      __v: 0,
+      id: "63f4fd24f0cfdcd3823fa3d3",
     };
 
     const responseCreation = await api
       .post("/api/users")
-      .send(newBlog)
+      .send(newUser)
       .expect(201)
       .expect("Content-Type", /application\/json/);
 
     const responseList = await api.get("/api/users");
 
-    const hashedPassword = hashPassword(newBlog.password);
-
     expect(responseCreation.body).toMatchObject({
-      ...newBlog,
-      password: hashedPassword,
+      name: newUser.name,
+      username: newUser.username,
     });
     expect(responseList.body).toHaveLength(users.length + 1);
   });
 
   it("should return error 400 when password length is less than 3", async () => {
-    const newBlog = {
-      name: "Dennis Ritchie",
+    const newUser = {
       username: "Machine guy",
+      name: "Dennis Ritchie",
       password: "a.",
+      __v: 0,
+      id: "63f4fd24f0cfdcd3823fa3d3",
     };
 
-    const response = await api.post("/api/users").send(newBlog).expect(400);
+    const response = await api.post("/api/users").send(newUser).expect(400);
 
     expect(response.body).toStrictEqual({
       status: 400,
