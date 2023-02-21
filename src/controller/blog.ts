@@ -17,6 +17,9 @@ const create = async (
   try {
     const connection = await Database.connect();
 
+    if (!connection)
+      next(new CustomError("connection failed to database", 500));
+
     const user = (await User.findById(body.user)) as UserInterface;
 
     const blog = new Blog({
@@ -24,9 +27,6 @@ const create = async (
       likes,
       user: user.id,
     });
-
-    if (!connection)
-      next(new CustomError("connection failed to database", 500));
 
     const results = await blog.save();
     response.status(201).json(results);
@@ -48,7 +48,7 @@ const getAll = async (
     if (!connection)
       next(new CustomError("connection failed to database", 500));
 
-    const blogs = await Blog.find({});
+    const blogs = await Blog.find({}).populate("user");
     response.status(200).json(blogs);
   } catch (error) {
     next(error);
