@@ -1,8 +1,10 @@
 import { NextFunction, Request, Response } from "express";
 import Database from "../database/connection";
 import BlogInterface from "../interfaces/blog";
+import UserInterface from "../interfaces/user";
 import Blog from "../model/blog";
 import CustomError from "../model/errors";
+import User from "../model/user";
 
 const create = async (
   request: Request,
@@ -12,13 +14,16 @@ const create = async (
   const body = request.body as BlogInterface;
   const likes = body.likes ? body.likes : 0;
 
-  const blog = new Blog({
-    ...body,
-    likes,
-  });
-
   try {
     const connection = await Database.connect();
+
+    const user = (await User.findById(body.user)) as UserInterface;
+
+    const blog = new Blog({
+      ...body,
+      likes,
+      user: user.id,
+    });
 
     if (!connection)
       next(new CustomError("connection failed to database", 500));

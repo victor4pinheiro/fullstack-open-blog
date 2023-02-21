@@ -5,4 +5,5 @@ export default interface BlogInterface {
   author: string;
   likes: number;
   url: string;
+  user?: string;
 }

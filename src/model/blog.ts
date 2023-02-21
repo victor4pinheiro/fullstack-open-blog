@@ -3,7 +3,7 @@ import BlogInterface from "../interfaces/blog";
 
 mongoose.set("strictQuery", false);
 
-const blogSchema = new mongoose.Schema({
+const blogSchema = new mongoose.Schema<BlogInterface>({
   title: {
     type: String,
     required: [true, "title required"],
@@ -11,6 +11,10 @@ const blogSchema = new mongoose.Schema({
   author: {
     type: String,
     required: [true, "author required"],
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
   },
   url: String,
   likes: Number,

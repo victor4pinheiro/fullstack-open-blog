@@ -3,7 +3,7 @@ import UserInterface from "../interfaces/user";
 
 mongoose.set("strictQuery", false);
 
-const userSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema<UserInterface>({
   username: {
     type: String,
     minLength: 3,
