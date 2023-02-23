@@ -3,7 +3,7 @@ import Database from "../database/connection";
 import UserInterface from "../interfaces/user";
 import User from "../model/user";
 import CustomError from "../model/errors";
-import hashPassword from "../middleware/hash";
+import { hashPassword } from "../middleware/hash";
 
 const create = async (
   request: Request,

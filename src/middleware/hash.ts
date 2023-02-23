@@ -9,4 +9,16 @@ const hashPassword = async (password: string) => {
   }
 };
 
-export default hashPassword;
+const comparePassword = async (password: string, userPassword: string) => {
+  try {
+    const state = await bcrypt.compare(password, userPassword);
+
+    if (!state)
+      return false;
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
+export { hashPassword, comparePassword };

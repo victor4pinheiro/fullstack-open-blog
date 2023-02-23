@@ -24,7 +24,6 @@ userSchema.set("toJSON", {
   transform(_doc, ret: UserInterface) {
     ret.id = ret._id;
     delete ret._id;
-    delete ret.password;
   },
 });
 
