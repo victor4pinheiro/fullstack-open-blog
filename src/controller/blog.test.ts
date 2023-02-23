@@ -1,7 +1,9 @@
 import request from "supertest";
 import app from "../app";
 import Database from "../database/connection";
+import UserInterface from "../interfaces/user";
 import Blog from "../model/blog";
+import User from "../model/user";
 
 const api = request(app);
 
@@ -56,11 +58,18 @@ const blogs = [
   },
 ];
 
+const newUser = {
+  name: "Dennis Ritchie",
+  username: "Machine guy",
+  password: "assemblyisgood."
+};
+
 describe("Blogs", () => {
   beforeEach(async () => {
     await Database.connect();
     await Blog.deleteMany({});
     await Blog.insertMany(blogs);
+    await User.deleteMany({});
   });
 
   it("should return all initial notes", async () => {
@@ -74,11 +83,14 @@ describe("Blogs", () => {
   });
 
   it("should return the new blog created", async () => {
+    const response = await api.post("/api/users").send(newUser).expect(201);
+    const userCreated = response.body as UserInterface;
+
     const newBlog = {
       title: "Test Driven Development: By Example",
       author: "Kent Beck",
       likes: 28,
-      user: "63f4f07c3e8785465e3a5813",
+      user: userCreated.id,
       url: "https://www.amazon.com.br/Test-Driven-Development-Kent-Beck/dp/0321146530",
     };
 
@@ -95,10 +107,13 @@ describe("Blogs", () => {
   });
 
   it("should check if likes is 0 if it's missing from the request", async () => {
+    const responseUser = await api.post("/api/users").send(newUser).expect(201);
+    const userCreated = responseUser.body as UserInterface;
+
     const newBlog = {
       title: "Test Driven Development: By Example",
       author: "Kent Beck",
-      user: "63f4f07c3e8785465e3a5813",
+      user: userCreated.id,
       url: "https://www.amazon.com.br/Test-Driven-Development-Kent-Beck/dp/0321146530",
     };
 
