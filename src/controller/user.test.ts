@@ -41,8 +41,6 @@ describe("Users", () => {
       username: "Machine guy",
       name: "Dennis Ritchie",
       password: "assemblyisgood.",
-      __v: 0,
-      id: "63f4fd24f0cfdcd3823fa3d3",
     };
 
     const responseCreation = await api
